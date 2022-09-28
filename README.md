@@ -1,6 +1,8 @@
 # Questions Parser
+[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://choosealicense.com/licenses/mit/)
+[![PyPI version](https://img.shields.io/pypi/v/QuestionsParser)](https://pypi.org/project/QuestionsParser/)
 
-This is a simple parser for questions about Java and OOP from PDF files. 
+**This is a simple parser for questions about Java and OOP from PDF files.**
 
 ## Usage
 

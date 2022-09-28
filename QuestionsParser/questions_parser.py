@@ -2,12 +2,11 @@ import re
 
 import regex
 from retry import retry
+from pathlib import Path
 
 PDF_PATTERN = r".*\.pdf"
 DOCX_PATTERN = r".*\.docx"
-ABSOLUTE_PATH_PATTERN = r"^.*/"
 DECIMAL_PATTERN = r"\d+\.\s"
-QUESTION_PATTERN = r".+\?$"
 
 
 class QuestionsParser:
@@ -20,8 +19,8 @@ class QuestionsParser:
         """
         import cloudscraper
 
-        if _validate_path(path_to_pdf):
-            self.__question_list = _parse_questions(path_to_pdf)
+        print(_validate_path(path_to_pdf))
+        self.__question_list = _parse_questions(_validate_path(path_to_pdf))
 
         self.__remainder_mod = remainder_mod
         self.__questions_range = questions_range
@@ -128,7 +127,7 @@ class QuestionsParser:
         return self.__question_list
 
 
-def _validate_path(path_to_pdf) -> bool:
+def _validate_path(path_to_pdf) -> Path:
     """
     Checks that the path to a pdf file is valid.
     If any of these tests fail, _validate_path raises an error.
@@ -140,9 +139,8 @@ def _validate_path(path_to_pdf) -> bool:
         raise TypeError("Path to pdf must be a string")
     if not regex.match(PDF_PATTERN, path_to_pdf):
         raise ValueError("Path to pdf must be a valid path to a pdf file")
-    if not regex.match(ABSOLUTE_PATH_PATTERN, path_to_pdf):
-        raise ValueError("Path to pdf must be an absolute path")
-    return True
+
+    return Path(path_to_pdf)
 
 
 def _parse_questions(path_to_pdf) -> list[str]:

@@ -4,7 +4,7 @@ if __name__ == '__main__':
     setup(
         name='QuestionsParser',
         packages=find_packages(),
-        version='0.0.5',
+        version='1.0.0',
         description='A Python package for parsing questions from pdf files.',
         author='Andrew Yaroshevych',
         install_requires=[

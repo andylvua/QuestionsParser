@@ -11,7 +11,7 @@ QUESTION_PATTERN = r".+\?$"
 
 
 class QuestionsParser:
-    def __init__(self, path_to_pdf, remainder_mod: tuple = (0, 1)):
+    def __init__(self, path_to_pdf, remainder_mod: tuple = (0, 1), questions_range: tuple = None):
         """
         The __init__ function is called when an instance of the class is created.
 
@@ -24,6 +24,7 @@ class QuestionsParser:
             self.__question_list = _parse_questions(path_to_pdf)
 
         self.__remainder_mod = remainder_mod
+        self.__questions_range = questions_range
         self.__scraper = cloudscraper.create_scraper()
         self.headers = {
                 "User-Agent":
@@ -76,6 +77,10 @@ class QuestionsParser:
 
         for i, question in enumerate(progress_bar(self.__question_list)):
             if (i + 1) % self.__remainder_mod[1] != self.__remainder_mod[0]:
+                continue
+            if self.__questions_range and i + 1 < self.__questions_range[0]:
+                continue
+            if self.__questions_range and i + 1 > self.__questions_range[1]:
                 continue
 
             question_str = str(i + 1) + ". " + question
